@@ -75,6 +75,27 @@ resource "azurerm_public_ip" "testpublicip" {
 }
 
 
+# Create public IPs
+
+resource "azurerm_public_ip" "lbpublicip" {
+
+    name                         = "lbPublicIP"
+
+    location                     = "eastus"
+
+    resource_group_name          = "${azurerm_resource_group.testgroup.name}"
+
+    allocation_method            = "Dynamic"
+
+
+
+    tags = {
+
+        environment = "Terraform Demo"
+
+    }
+
+}
 
 # Create Network Security Group and rule
 
@@ -124,12 +145,12 @@ resource "azurerm_network_security_group" "testnsg" {
 
 resource "azurerm_lb" "test" {
   name                = "TestLoadBalancer"
-  location            = "West US"
+  location            = "eastus"
   resource_group_name = "${azurerm_resource_group.testgroup.name}"
 
   frontend_ip_configuration {
     name                 = "PublicIPAddress"
-    public_ip_address_id = "${azurerm_public_ip.testpublicip.id}"
+    public_ip_address_id = "${azurerm_public_ip.lbpublicip.id}"
   }
 }
 
@@ -322,7 +343,7 @@ resource "azurerm_virtual_machine_extension" "testextension" {
 
       settings = <<SETTINGS
       {
-	"commandToExecute": "yum install -y wget && wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo && rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key && yum install -y java-1.8.0-openjdk && yum install -y jenkins && systemctl start jenkins && systemctl enable jenkins && yum install -y net-tools rsync && wgt https://bintray.com/jfrog/artifactory-rpms/download_file?file_path=jfrog-artifactory-oss-6.6.5.rpm && yum install -y download_file?file_path=jfrog-artifactory-oss-6.6.5.rpm && yum install -y git"
+	"commandToExecute": "yum install -y wget && yum install -y git"
       }
     SETTINGS
 
