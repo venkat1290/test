@@ -62,7 +62,7 @@ resource "azurerm_public_ip" "testpublicip" {
 
     resource_group_name          = "${azurerm_resource_group.testgroup.name}"
 
-    allocation_method            = "Dynamic"
+    public_ip_address_allocation = "Dynamic"
 
 
 
@@ -85,7 +85,7 @@ resource "azurerm_public_ip" "lbpublicip" {
 
     resource_group_name          = "${azurerm_resource_group.testgroup.name}"
 
-    allocation_method            = "Dynamic"
+    public_ip_address_allocation = "Dynamic"
 
 
 
