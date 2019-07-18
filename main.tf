@@ -224,9 +224,7 @@ resource "azurerm_storage_account" "teststorageaccount" {
 
     location                    = "eastus"
 
-    account_tier                = "Standard"
-
-    account_replication_type    = "LRS"
+    account_type		= "Standard_LRS"
 
 
 
