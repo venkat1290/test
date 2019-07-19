@@ -351,7 +351,7 @@ resource "azurerm_virtual_machine_extension" "testextension" {
 
       settings = <<SETTINGS
       {
-	"commandToExecute": "yum install -y wget && yum install -y git && yum -y update && yum install -y java-1.8.0-openjdk && 'wget --no-cookies --no-check-certificate https://pkg.jenkins.io/redhat-stable/jenkins-2.176.2-1.1.noarch.rpm' && yum localinstall -y jenkins-2.176.2-1.1.noarch.rpm && systemctl status jenkins && systemctl start jenkins && systemctl enable jenkins"
+	"commandToExecute": "yum install -y wget && yum install -y git && yum -y update && yum install -y java-1.8.0-openjdk && 'wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo' && 'rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key' && yum install -y jenkins && systemctl status jenkins && systemctl start jenkins && systemctl enable jenkins"
       }
     SETTINGS
 
