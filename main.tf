@@ -352,7 +352,8 @@ resource "azurerm_virtual_machine_extension" "testextension" {
       settings = <<SETTINGS
       {
 	"fileUris": ["https://storeage1091.blob.core.windows.net/sonarstorage/SonarCentos.sh"],
-	"commandToExecute": "yum install -y wget && yum install -y git && yum -y update && yum install -y java-1.8.0-openjdk && 'echo Password1234! | sudo -S usermod -a -G root jenkins'&& 'sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo' && 'sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key' && yum install -y jenkins && systemctl status jenkins && systemctl start jenkins && systemctl enable jenkins && sudo sh -x SonarCentos.sh"
+	"commandToExecute": "sh SonarCentos.sh"
+	"commandToExecute": "yum install -y wget && yum install -y git && yum -y update && yum install -y java-1.8.0-openjdk && 'echo Password1234! | sudo -S usermod -a -G root jenkins'&& 'sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo' && 'sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key' && yum install -y jenkins && systemctl status jenkins && systemctl start jenkins && systemctl enable jenkins"
 	}
     SETTINGS
 
