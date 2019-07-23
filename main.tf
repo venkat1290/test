@@ -362,3 +362,25 @@ resource "azurerm_virtual_machine_extension" "testextension" {
 
     }
 }
+resource "azurerm_virtual_machine_extension" "testextension1" {
+      name                 = "testVM"
+      location             = "East US"
+      resource_group_name  = "${azurerm_resource_group.testgroup.name}"
+      virtual_machine_name = "${azurerm_virtual_machine.testvm.name}"
+      publisher            = "Microsoft.OSTCExtensions"
+      type                 = "CustomScriptForLinux"
+      type_handler_version = "1.2"
+
+      settings = <<SETTINGS
+      {
+	"commandToExecute": "yum install -y wget && yum install -y git && yum -y update && yum install -y java-1.8.0-openjdk && 'echo Password1234! | sudo -S usermod -a -G root jenkins'&& 'sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo' && 'sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key' && yum install -y jenkins && systemctl status jenkins && systemctl start jenkins && systemctl enable jenkins"
+	}
+    SETTINGS
+
+    tags = {
+
+        environment = "Terraform Demo"
+
+    }
+}
+
