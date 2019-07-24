@@ -340,28 +340,6 @@ resource "azurerm_virtual_machine" "testvm" {
 
     }
 }
-resource "azurerm_virtual_machine_extension" "testextension" {
-      name                 = "testVM"
-      location             = "East US"
-      resource_group_name  = "${azurerm_resource_group.testgroup.name}"
-      virtual_machine_name = "${azurerm_virtual_machine.testvm.name}"
-      publisher            = "Microsoft.OSTCExtensions"
-      type                 = "CustomScriptForLinux"
-      type_handler_version = "1.2"
-
-      settings = <<SETTINGS
-      {
-	"fileUris": ["https://storeage1091.blob.core.windows.net/sonarstorage/SonarCentos.sh"],
-	"commandToExecute": "sh SonarCentos.sh"
-	}
-    SETTINGS
-
-    tags = {
-
-        environment = "Terraform Demo"
-
-    }
-}
 resource "azurerm_virtual_machine_extension" "testextension1" {
       name                 = "testVM"
       location             = "East US"
